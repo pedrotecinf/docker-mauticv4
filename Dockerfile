@@ -91,9 +91,9 @@ ENV PHP_INI_DATE_TIMEZONE='UTC' \
 RUN git clone --depth 1 --branch ${MAUTIC_VERSION} https://github.com/mautic/mautic.git /usr/src/mautic && \
     cd /usr/src/mautic && \
     git fetch origin pull/11748/head && \
-    git cherry-pick FETCH_HEAD && \
+    git cherry-pick -m 1 FETCH_HEAD && \
     git fetch origin pull/11255/head && \
-    git cherry-pick FETCH_HEAD && \
+    git cherry-pick -m 1 FETCH_HEAD && \
     chown -R www-data:www-data /usr/src/mautic
 
 # Copy init scripts and custom .htaccess
