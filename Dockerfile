@@ -94,8 +94,10 @@ RUN git clone --depth 1 --branch ${MAUTIC_VERSION} https://github.com/mautic/mau
     git cherry-pick -m 1 FETCH_HEAD || \
     (git rm -f UPGRADE-PHP-TO-TWIG-TEMPLATES.md UPGRADE-5.0.md && git cherry-pick --continue && git add . && git commit -m "Resolve merge conflicts") && \
     git fetch origin pull/11255/head && \
-    git cherry-pick -m 1 FETCH_HEAD && \
+    git cherry-pick -m 1 FETCH_HEAD || \
+    (git rm -f composer.lock && git cherry-pick --continue && git add . && git commit -m "Handle composer.lock conflicts") && \
     chown -R www-data:www-data /usr/src/mautic
+
 
 
 # Copy init scripts and custom .htaccess
