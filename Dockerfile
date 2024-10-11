@@ -63,23 +63,23 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 VOLUME /var/www/html
 
 # Define Mautic version and expected SHA1 signature
-ENV MAUTIC_VERSION 4.4.12
-ENV MAUTIC_SHA1 c5e1406c0bcdb54d75a594a7d24a69ae18f9631c
+ENV MAUTIC_VERSION=4.4.12
+ENV MAUTIC_SHA1=c5e1406c0bcdb54d75a594a7d24a69ae18f9631c
 
 # By default enable cron jobs
-ENV MAUTIC_RUN_CRON_JOBS true
+ENV MAUTIC_RUN_CRON_JOBS=true
 
 # By default disable automatic migrations
-ENV MAUTIC_RUN_MIGRATIONS false
+ENV MAUTIC_RUN_MIGRATIONS=false
 
 # Setting an Default database user for Mysql
-ENV MAUTIC_DB_USER root
+ENV MAUTIC_DB_USER=root
 
 # Setting an Default database name for Mysql
-ENV MAUTIC_DB_NAME mautic
+ENV MAUTIC_DB_NAME=mautic
 
 # Set up mysql port
-ENV MAUTIC_DB_PORT 3306
+ENV MAUTIC_DB_PORT=3306
 
 # Setting PHP properties
 ENV PHP_INI_DATE_TIMEZONE='UTC' \
