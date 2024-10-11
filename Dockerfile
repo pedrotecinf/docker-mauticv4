@@ -97,10 +97,10 @@ RUN git clone --depth 1 --branch ${MAUTIC_VERSION} https://github.com/mautic/mau
     chown -R www-data:www-data /usr/src/mautic
 
 # Copy init scripts and custom .htaccess
-COPY ../common/docker-entrypoint.sh /entrypoint.sh
-COPY ../common/makeconfig.php /makeconfig.php
-COPY ../common/makedb.php /makedb.php
-COPY ../common/mautic.crontab /etc/cron.d/mautic
+COPY common/docker-entrypoint.sh /entrypoint.sh
+COPY common/makeconfig.php /makeconfig.php
+COPY common/makedb.php /makedb.php
+COPY common/mautic.crontab /etc/cron.d/mautic
 RUN chmod 644 /etc/cron.d/mautic
 
 # Enable Apache Rewrite Module
