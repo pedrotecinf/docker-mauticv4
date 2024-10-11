@@ -1,7 +1,6 @@
 FROM php:7.4-apache
 
 LABEL vendor="Mautic"
-
 LABEL maintainer="Luiz Eduardo Oliveira Fonseca <luiz@powertic.com>"
 
 # Install PHP extensions
@@ -88,13 +87,14 @@ ENV PHP_INI_DATE_TIMEZONE='UTC' \
     PHP_MAX_UPLOAD=512M \
     PHP_MAX_EXECUTION_TIME=300
 
-# Download package and extract to web volume
-RUN curl -o mautic.zip -SL https://github.com/mautic/mautic/releases/download/${MAUTIC_VERSION}/${MAUTIC_VERSION}.zip \
-    && echo "$MAUTIC_SHA1 *mautic.zip" | sha1sum -c - \
-    && mkdir /usr/src/mautic \
-    && unzip mautic.zip -d /usr/src/mautic \
-    && rm mautic.zip \
-    && chown -R www-data:www-data /usr/src/mautic
+# Clone Mautic repository and checkout the desired version
+RUN git clone --depth 1 --branch ${MAUTIC_VERSION} https://github.com/mautic/mautic.git /usr/src/mautic && \
+    cd /usr/src/mautic && \
+    git fetch origin pull/11748/head && \
+    git cherry-pick -m 1 FETCH_HEAD && \
+    git fetch origin pull/11255/head && \
+    git cherry-pick -m 1 FETCH_HEAD && \
+    chown -R www-data:www-data /usr/src/mautic
 
 # Copy init scripts and custom .htaccess
 COPY common/docker-entrypoint.sh /entrypoint.sh
