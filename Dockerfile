@@ -91,7 +91,7 @@ ENV PHP_INI_DATE_TIMEZONE='UTC' \
 RUN git clone --depth 1 --branch ${MAUTIC_VERSION} https://github.com/mautic/mautic.git /usr/src/mautic && \
     cd /usr/src/mautic && \
     git fetch origin pull/11748/head && \
-    git cherry-pick -m 1 FETCH_HEAD && \
+    git cherry-pick -m 1 FETCH_HEAD || (git rm -f UPGRADE-PHP-TO-TWIG-TEMPLATES.md UPGRADE-5.0.md && git cherry-pick --continue) && \
     git fetch origin pull/11255/head && \
     git cherry-pick -m 1 FETCH_HEAD && \
     chown -R www-data:www-data /usr/src/mautic
